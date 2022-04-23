@@ -9,19 +9,21 @@ module.exports = {
 
     let strData = JSON.stringify(newUser);
 
-    qr.toString(strData, { type: "terminal" }, async function (err, code) {
+      qr.toString(strData, { type: "terminal" }, async function (err, code) {
       if (err) return console.log("erropzr occurred");
+      
+    });
+
+    qr.toDataURL(strData, async function (err, code) {
+      if (err) return console.log("error occurred");
       newUser.qrCode = code;
       await newUser.save();
-      console.log(code);
     });
 
-    qr.toDataURL(strData, function (err, code) {
-      if (err) return console.log("error occurred");
+    console.log('successfully');
 
-      // console.log(code);
+    res.render('qr', {
+      user: newUser
     });
-
-    res.json({ newUser });
   }),
 };

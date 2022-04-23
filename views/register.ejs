@@ -5,30 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="../public/css/register.css">
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
     <div class="container">
-		<header>Collaborator Form</header>
-		<form>
+		<form action="/api/createUsers" method="POST">
 			<div class="input-field">
-				<input type="text" required>
+				<input name="name" type="text" required>
 				<label>Full name</label>
 			</div>
 			<div class="input-field">
-				<input class="pswrd" type="password" required>
+				<input name="class" class="pswrd" type="text" required>
 				<span class="show">SHOW</span>
 				<label>Classroom</label>
 			</div>
             <div class="input-field">
-				<input class="pswrd" type="password" required>
+				<input name="studentCode" class="pswrd" type="text" required>
 				<span class="show">SHOW</span>
 				<label>Student Code</label>
 			</div>
 			<div class="button">
 				<div class="inner">
 				</div>
-				<button>Register</button>
+				<button>Submit</button>
 			</div>
 		</form>
 	
