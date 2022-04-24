@@ -18,8 +18,14 @@ module.exports = {
       newUser.qrCode = code;
       await newUser.save();
       console.log(code);
-    });
 
-    res.json({ newUser });
+      console.log("create candidate successfully");
+      res.render("qr", {
+        user: newUser,
+      });
+    });
+  }),
+  getQrCode: asyncHandle(async (req, res, next) => {
+    res.render("reader-qr");
   }),
 };
