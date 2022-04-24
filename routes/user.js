@@ -3,6 +3,7 @@ const userController = require("../controllers/userController");
 
 const router = express.Router();
 
+router.get("/qrCode", userController.getQrCode);
 router.post("/createUsers", userController.createUser);
 
 module.exports = router;

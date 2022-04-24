@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reader QR</title>
+  </head>
+  <body
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    "
+  >
+    <h1>Scan Qr Code</h1>
+    <div style="width: 500px" id="reader"></div>
+  </body>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    function onScanSuccess(decodedText, decodedResult) {
+      // Handle on success condition with the decoded text or result.
+      // console.log(`Scan result: ${decodedText}`, decodedResult);
+      if (decodedResult) {
+        socket.emit("result", decodedResult);
+      }
+    }
+
+    function onScanError(errorMessage) {
+      // handle on error condition, with error message
+    }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+      fps: 10,
+      qrbox: 250,
+    });
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+  </script>
+</html>
