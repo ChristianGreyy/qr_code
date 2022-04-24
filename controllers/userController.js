@@ -10,12 +10,15 @@ module.exports = {
 
     qr.toString(strData, { type: "terminal" }, function (err, code) {
       if (err) return console.log("erropzr occurred");
+      console.log(code);
     });
 
     qr.toDataURL(strData, async function (err, code) {
       if (err) return console.log("error occurred");
       newUser.qrCode = code;
       await newUser.save();
+      console.log(code);
+
       console.log("create candidate successfully");
       res.render("qr", {
         user: newUser,

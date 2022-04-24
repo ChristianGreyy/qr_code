@@ -8,10 +8,12 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const path = require("path");
 const port = 3000;
 
 const userRouter = require("./routes/user");
+const authRouter = require("./routes/auth");
 
 dotenv.config({ path: "./config.env" });
 
@@ -35,6 +37,11 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+
+app.use(cookieParser("thuy"));
+
+app.use("/api", userRouter);
+app.use("/api/auth", authRouter);
 
 io.on("connection", (socket) => {
   console.log("a user connected");
