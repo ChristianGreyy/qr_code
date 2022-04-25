@@ -9,14 +9,14 @@
   </head>
   <body>
     <div class="container">
-      <form action="/api/createUsers" method="POST">
+      <form action="/auth/login" method="POST">
         <header>Đăng nhập admin</header>
         <div class="input-field">
-          <input name="class" class="pswrd" type="text" required />
+          <input name="studentCode" class="pswrd" type="text" required />
           <label>Mã sinh viên</label>
         </div>
         <div class="input-field">
-          <input name="studentCode" class="pswrd" type="password" required />
+          <input name="password" class="pswrd" type="password" required />
           <label>Mật khẩu</label>
         </div>
         <div class="button">

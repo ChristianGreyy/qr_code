@@ -10,31 +10,29 @@ const signToken = (id) => {
 };
 
 const createSendToken = (user, statusCode, res) => {
-  const token = signToken(user.studentCode);
-
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-
-  res.cookie("tokens", token, cookieOptions);
-
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-
-  res.status(statusCode).json({
-    status: "success",
-    token,
-    data: {
-      user,
-    },
-  });
+  // const cookieOptions = {
+  //   expires: new Date(
+  //     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+  //   ),
+  //   httpOnly: true,
+  // };
+  // res.cookie("tokens", token, cookieOptions);
+  // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  // res.status(statusCode).json({
+  //   status: "success",
+  //   token,
+  //   data: {
+  //     user,
+  //   },
+  // });
 };
 
 module.exports = {
   getLogin: asyncHandle(async (req, res, next) => {
-    res.render("login");
+    if (!req.session.token) {
+      return res.render("login");
+    }
+    return res.redirect("/user/qrCode");
   }),
   login: asyncHandle(async (req, res, next) => {
     const { studentCode, password } = req.body;
@@ -47,35 +45,45 @@ module.exports = {
     if (!user)
       return next(new ErrorResponse("Invaible studentCode or password", 404));
 
-    const isMatch = await user.isMatchPassword(password);
+    // const isMatch = await user.isMatchPassword(password);
+    const isMatch = user.password == password;
+    console.log(isMatch);
     if (!isMatch) {
       return next(new ErrorResponse("Wrong password", 400));
     }
 
-    createSendToken(user, 200, res);
+    const token = signToken(user.studentCode);
+
+    req.session.token = token;
+
+    res.redirect("/user/qrCode");
+
+    // createSendToken(user, 200, res);
   }),
   protect: asyncHandle(async (req, res, next) => {
-    let token = req.cookies.tokens;
-    console.log(token);
+    let token = req.session.token;
+    // console.log(token);
 
     if (!token) {
-      return next(new Error("Cookie is not found", 404));
+      return res.status(404).redirect("/auth/login");
+      // return next(new Error("Cookie is not found", 404));
     }
 
     try {
       const payload = jwt.verify(token, process.env.TOKEN_SECRET);
-
       const user = await User.findOne({ studentCode: payload.id });
 
       if (!user) {
-        return next(new AppError("token is invaible"), 401);
+        // return next(new AppError("token is invaible"), 401);
+        return res.status(401).redirect("/auth/login");
       }
 
       req.user = user;
       next();
     } catch (error) {
       console.log(error);
-      return next(new ErrorResponse("token is invaible", 401));
+      return res.status(401).redirect("/auth/login");
+      // return next(new ErrorResponse("token is invaible", 401));
     }
   }),
   retrictTo: (roles) => (req, res, next) => {

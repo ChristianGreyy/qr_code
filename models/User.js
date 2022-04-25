@@ -16,6 +16,7 @@ const userSchema = new Schema(
     studentCode: {
       type: String,
       require: [true, "User must have student code"],
+      unique: true,
     },
     role: {
       type: String,
@@ -36,11 +37,12 @@ userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 12);
-
+  console.log("hahahahaha");
   next();
 });
 userSchema.methods.isMatchPassword = async function (password) {
   const isMatched = await bcrypt.compare(password, this.password);
+  console.log(password, this.password);
 
   return isMatched;
 };

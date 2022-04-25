@@ -6,16 +6,23 @@ module.exports = (io) => {
     console.log("a user connected");
 
     socket.on("result", async (data) => {
+      console.log(data);
       let { decodedText } = data;
       const newUser = new User(JSON.parse(decodedText));
       await newUser.save();
       console.log("create candidate successfully");
 
-      console.log(newUser);
-
-      const users = await User.find({});
+      const users = await User.find({ role: "candidate" });
 
       socket.emit("update-table", users);
+    });
+
+    socket.on("client-update-point", async (data) => {
+      const user = await User.findOne({ _id: data.userId });
+      user.point = data.point;
+      const result = await user.save();
+      console.log(result);
+      console.log("update point successfully");
     });
   });
 };

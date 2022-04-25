@@ -20,7 +20,8 @@
   var socket = io();
 
   socket.on("update-table", (users) => {
-    const html = users.map((user, index) => {
+    console.log(users);
+    const array = users.map((user, index) => {
       return `
         <tr>
           <th scope="row">${index + 1}</th>
@@ -35,15 +36,30 @@
     `;
     });
 
-    console.log(document.querySelector("tbody"));
+    document.querySelector("tbody").innerHTML = array.join("");
+  });
 
-    document.querySelector("tbody").appendChild(html);
+  document.querySelectorAll(".candidate__point").forEach((input) => {
+    input.onchange = (e) => {
+      const userId = e.target.parentNode.parentNode.className;
+      const point = e.target.value;
+      console.log(userId);
+      socket.emit("client-update-point", {
+        userId,
+        point,
+      });
+    };
   });
 
   function onScanSuccess(decodedText, decodedResult) {
     // Handle on success condition with the decoded text or result.
     // console.log(`Scan result: ${decodedText}`, decodedResult);
     if (decodedResult) {
+      // const src = document.querySelector(".qr__code-image").src;
+      // socket.emit("result", {
+      //   decodedResult,
+      //   src,
+      // });
       socket.emit("result", decodedResult);
     }
   }

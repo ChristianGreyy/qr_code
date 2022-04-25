@@ -8,6 +8,8 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const port = 3000;
@@ -25,21 +27,45 @@ app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/favicon.ico", (req, res, next) => {
+  res.status(200);
+});
+
 // function wait(millisec) {
 //   var now = new Date();
 //   while (new Date() - now <= millisec);
 // }
 
+const uri = "mongodb://localhost:27017/qr-code";
+
+const store = new MongoDBStore({
+  uri: uri,
+  collection: "mySessions",
+});
+
+app.use(
+  require("express-session")({
+    secret: "This is a secret",
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    },
+    store: store,
+    // Boilerplate options, see:
+    // * https://www.npmjs.com/package/express-session#resave
+    // * https://www.npmjs.com/package/express-session#saveuninitialized
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/", (req, res, next) => {
-  // wait(5000);
-  console.log("register");
   res.render("register");
 });
 
 mongoose
-  .connect("mongodb://localhost:27017/qr-code")
+  .connect(uri)
   .then(() => {
     console.log("connected to database");
   })
