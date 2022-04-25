@@ -14,6 +14,7 @@ const port = 3000;
 
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
+const socket = require("./socket");
 
 dotenv.config({ path: "./config.env" });
 
@@ -24,8 +25,16 @@ app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api", userRouter);
+// function wait(millisec) {
+//   var now = new Date();
+//   while (new Date() - now <= millisec);
+// }
+
+app.use("/auth", authRouter);
+app.use("/user", userRouter);
 app.use("/", (req, res, next) => {
+  // wait(5000);
+  console.log("register");
   res.render("register");
 });
 
@@ -39,17 +48,7 @@ mongoose
   });
 
 app.use(cookieParser("thuy"));
-
-app.use("/api", userRouter);
-app.use("/api/auth", authRouter);
-
-io.on("connection", (socket) => {
-  console.log("a user connected");
-
-  socket.on("result", (data) => {
-    console.log(data);
-  });
-});
+socket(io);
 
 server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

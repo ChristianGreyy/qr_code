@@ -4,7 +4,8 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
+router.get("/getUsers", userController.getUsers);
 router.get("/qrCode", userController.getQrCode);
-router.post("/createUsers", userController.createUser);
+router.post("/createUserQR", userController.createUserQr);
 
 module.exports = router;

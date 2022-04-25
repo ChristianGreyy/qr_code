@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="/css/register.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký thành viên</title>
+    <link rel="stylesheet" href="/css/register.css" />
+  </head>
+  <body>
     <div class="container">
-		<form action="/api/createUsers" method="POST">
-			<header>HIT FORM </header>
-			<div class="input-field">
-				<input name="name" type="text" required>
-				<label>Full name</label>
-			</div>
-			<div class="input-field">
-				<input name="class" class="pswrd" type="text" required>
-				<label>Classroom</label>
-			</div>
-            <div class="input-field">
-				<input name="studentCode" class="pswrd" type="text" required>
-				<label>Student Code</label>
-			</div>
-			<div class="button">
-				<div class="inner">
-				</div>
-				<button>Submit</button>
-			</div>
-		</form>
-	
-	</div>
-</body>
+      <div class="container__left">
+        <form action="/user/createUserQR" method="POST">
+          <header>Tuyển thành viên HIT</header>
+          <div class="input-field">
+            <input name="name" type="text" required />
+            <label>Họ và tên</label>
+          </div>
+          <div class="input-field">
+            <input name="class" class="pswrd" type="text" required />
+            <label>Lớp học</label>
+          </div>
+          <div class="input-field">
+            <input name="studentCode" class="pswrd" type="text" required />
+            <label>Mã sinh viên</label>
+          </div>
+          <div class="button">
+            <div class="inner"></div>
+            <button>Gửi</button>
+          </div>
+        </form>
+      </div>
+      <div class="container__right">
+        <img class="container__right-image" src="/images/hit.png" />
+      </div>
+    </div>
+  </body>
 </html>

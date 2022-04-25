@@ -3,25 +3,25 @@ const asyncHandle = require("../untils/asyncHandle");
 const qr = require("qrcode");
 
 module.exports = {
-  createUser: asyncHandle(async (req, res, next) => {
-    const newUser = await User.create(req.body);
-
-    let strData = JSON.stringify(newUser);
+  getUsers: asyncHandle(async (req, res, next) => {
+    const users = await User.find({ role: "candidate" });
+    console.log(users);
+    res.render("candidate", { users: users });
+  }),
+  createUserQr: asyncHandle(async (req, res, next) => {
+    let strData = JSON.stringify(req.body);
 
     qr.toString(strData, { type: "terminal" }, function (err, code) {
       if (err) return console.log("erropzr occurred");
-      console.log(code);
+      // console.log(code);
     });
 
     qr.toDataURL(strData, async function (err, code) {
       if (err) return console.log("error occurred");
-      newUser.qrCode = code;
-      await newUser.save();
-      console.log(code);
 
       console.log("create candidate successfully");
       res.render("qr", {
-        user: newUser,
+        src: code,
       });
     });
   }),

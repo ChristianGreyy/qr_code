@@ -5,31 +5,23 @@
   border-radius: 5px;
   box-sizing: border-box;
 }
-
-.container {
+body {
   height: 100vh;
   display: flex;
   align-items: center;
+  text-align: center;
   font-family: sans-serif;
   justify-content: center;
-  width: 100%;
-  text-align: center;
+  background-color: orange;
+  /* background: url(https://devforum.info/DEMO/LoginForm1/bg.jpg); */
+  background-size: cover;
+  background-position: center;
 }
-.container__left {
-  width: 440px;
+.container {
+  position: relative;
+  width: 400px;
   background: white;
   padding: 60px 40px;
-  box-shadow: 0 0 20px #888;
-  height: 580px;
-}
-.container__right {
-  width: 280px;
-  background-color: orange;
-  height: 580px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* box-shadow: 0 0 10px #888; */
 }
 header {
   font-size: 40px;
@@ -100,6 +92,7 @@ form .button {
   left: -100%;
   z-index: -1;
   transition: all 0.4s;
+  background-color: orange;
   /* background: -webkit-linear-gradient(
     right,
     #00dbde,
@@ -107,7 +100,6 @@ form .button {
     #00dbde,
     #fc00ff
   ); */
-  background: orange;
 }
 .button:hover .inner {
   left: 0;

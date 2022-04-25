@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QR code</title>
-    <link rel="stylesheet" href="/css/qr.css">
-</head>
+    <link rel="stylesheet" href="/css/qr.css" />
+  </head>
 
-<body>
+  <body>
     <div class="app">
-        <div class="app__content">
-            <h2 class="app__heading">
-                Your QR Code
-            </h2>
-            <div class="qr__code">
-                <img src="<%= user.qrCode %>" alt="" class="qr__code-image">
-            </div>
+      <div class="app__content">
+        <h2 class="app__heading">Your QR Code</h2>
+        <div class="qr__code">
+          <img src="<%= src %>" alt="" class="qr__code-image" />
         </div>
-
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

@@ -33,6 +33,9 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 module.exports = {
+  getLogin: asyncHandle(async (req, res, next) => {
+    res.render("login");
+  }),
   login: asyncHandle(async (req, res, next) => {
     const { studentCode, password } = req.body;
 
