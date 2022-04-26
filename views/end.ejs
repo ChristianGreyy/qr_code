@@ -21,26 +21,28 @@
 
   socket.on("update-table", (users) => {
     console.log(users);
-    const array = users.map((user, index) => {
-      return `
-        <tr>
-          <th scope="row">${index + 1}</th>
-          <td>${user.name}</td>
-          <td>${user.class}</td>
-          <td>${user.studentCode}</td>
-          <td style="width: 40px"><input playholder="${user.point}"/></td>
-          <td><textarea style="width: 100%; height: 30px" playholder="${
-            user.comment
-          }"></textarea></td>
-        </tr>
-    `;
-    });
+    if (users) {
+      const array = users.map((user, index) => {
+        return `
+          <tr>
+            <th scope="row">${index + 1}</th>
+            <td>${user.name}</td>
+            <td>${user.class}</td>
+            <td>${user.studentCode}</td>
+            <td style="width: 40px"><input playholder="${user.point}"/></td>
+            <td><textarea style="width: 100%; height: 30px" playholder="${
+              user.comment
+            }"></textarea></td>
+          </tr>
+      `;
+      });
 
-    document.querySelector("tbody").innerHTML = array.join("");
+      document.querySelector("tbody").innerHTML = array.join("");
+    }
   });
 
   document.querySelectorAll(".candidate__point").forEach((input) => {
-    input.onchange = (e) => {
+    input.onkeyup = (e) => {
       const userId = e.target.parentNode.parentNode.className;
       const point = e.target.value;
       console.log(userId);
@@ -50,6 +52,22 @@
       });
     };
   });
+  document.querySelectorAll(".candidate__comment").forEach((input) => {
+    input.onkeyup = (e) => {
+      const userId = e.target.parentNode.parentNode.className;
+      const comment = e.target.value;
+      console.log(userId);
+      socket.emit("client-update-comment", {
+        userId,
+        comment,
+      });
+    };
+  });
+  document.querySelector(".input__studentcode").onkeyup = (e) => {
+    const studentCode = e.target.value;
+    console.log(studentCode);
+    socket.emit("client-input-studentCode", studentCode);
+  };
 
   function onScanSuccess(decodedText, decodedResult) {
     // Handle on success condition with the decoded text or result.

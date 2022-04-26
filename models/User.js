@@ -16,7 +16,7 @@ const userSchema = new Schema(
     studentCode: {
       type: String,
       require: [true, "User must have student code"],
-      unique: true,
+      unique: false,
     },
     role: {
       type: String,
