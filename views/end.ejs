@@ -50,6 +50,28 @@
       });
     };
   });
+  document.querySelectorAll(".candidate__comment").forEach((input) => {
+    input.onchange = (e) => {
+      const userId = e.target.parentNode.parentNode.className;
+      const comment = e.target.value;
+      console.log(userId);
+      socket.emit("client-update-comment", {
+        userId,
+        comment,
+      });
+    };
+  });
+  document.querySelectorAll(".input__studentcode").forEach((input) => {
+    input.onchange = (e) => {
+      const userId = e.target.parentNode.parentNode.className;
+      const input = e.target.value;
+      console.log(userId);
+      socket.emit("client-input_studentCode", {
+        userId,
+        input,
+      });
+    };
+  });
 
   function onScanSuccess(decodedText, decodedResult) {
     // Handle on success condition with the decoded text or result.

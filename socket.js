@@ -24,5 +24,17 @@ module.exports = (io) => {
       console.log(result);
       console.log("update point successfully");
     });
+    socket.on("client-update-comment", async (data) => {
+      const user = await User.findOne({ _id: data.userId });
+      user.comment = data.comment;
+      const result = await user.save();
+      console.log(result);
+      console.log("update comment successfully");
+    });
+    socket.on("client-input-studentCode", async (data) => {
+      const user = await User.findOne({ _id: data.userId });
+
+      socket.emit("update-table", user);
+    });
   });
 };
