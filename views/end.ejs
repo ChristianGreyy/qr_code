@@ -41,54 +41,60 @@
     }
   });
 
-  document.querySelectorAll(".candidate__point").forEach((input) => {
-    input.onkeyup = (e) => {
-      const userId = e.target.parentNode.parentNode.className;
-      const point = e.target.value;
-      console.log(userId);
-      socket.emit("client-update-point", {
-        userId,
-        point,
-      });
+  if (document.querySelectorAll(".candidate__point")) {
+    document.querySelectorAll(".candidate__point").forEach((input) => {
+      input.onkeyup = (e) => {
+        const userId = e.target.parentNode.parentNode.className;
+        const point = e.target.value;
+        console.log(userId);
+        socket.emit("client-update-point", {
+          userId,
+          point,
+        });
+      };
+    });
+  }
+  if (document.querySelectorAll(".candidate__comment")) {
+    document.querySelectorAll(".candidate__comment").forEach((input) => {
+      input.onkeyup = (e) => {
+        const userId = e.target.parentNode.parentNode.className;
+        const comment = e.target.value;
+        console.log(userId);
+        socket.emit("client-update-comment", {
+          userId,
+          comment,
+        });
+      };
+    });
+  }
+  if (document.querySelector(".input__studentcode")) {
+    document.querySelector(".input__studentcode").onkeyup = (e) => {
+      const studentCode = e.target.value;
+      console.log(studentCode);
+      socket.emit("client-input-studentCode", studentCode);
     };
-  });
-  document.querySelectorAll(".candidate__comment").forEach((input) => {
-    input.onkeyup = (e) => {
-      const userId = e.target.parentNode.parentNode.className;
-      const comment = e.target.value;
-      console.log(userId);
-      socket.emit("client-update-comment", {
-        userId,
-        comment,
-      });
-    };
-  });
-  document.querySelector(".input__studentcode").onkeyup = (e) => {
-    const studentCode = e.target.value;
-    console.log(studentCode);
-    socket.emit("client-input-studentCode", studentCode);
-  };
-
-  function onScanSuccess(decodedText, decodedResult) {
-    // Handle on success condition with the decoded text or result.
-    // console.log(`Scan result: ${decodedText}`, decodedResult);
-    if (decodedResult) {
-      // const src = document.querySelector(".qr__code-image").src;
-      // socket.emit("result", {
-      //   decodedResult,
-      //   src,
-      // });
-      socket.emit("result", decodedResult);
-    }
   }
 
-  function onScanError(errorMessage) {
-    // handle on error condition, with error message
-  }
+  // function onScanSuccess(decodedText, decodedResult) {
+  //   // Handle on success condition with the decoded text or result.
+  //   // console.log(`Scan result: ${decodedText}`, decodedResult);
+  //   if (decodedResult) {
+  //     // const src = document.querySelector(".qr__code-image").src;
+  //     // socket.emit("result", {
+  //     //   decodedResult,
+  //     //   src,
+  //     // });
+  //     socket.emit("result", decodedResult);
+  //   }
+  // }
 
-  var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
-    fps: 10,
-    qrbox: 250,
-  });
-  html5QrcodeScanner.render(onScanSuccess, onScanError);
+  // function onScanError(errorMessage) {
+  //   // handle on error condition, with error message
+  // }
+
+  // var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+  //   fps: 10,
+  //   qrbox: 250,
+  // });
+  // html5QrcodeScanner.render(onScanSuccess, onScanError);
 </script>

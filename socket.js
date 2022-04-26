@@ -6,8 +6,16 @@ module.exports = (io) => {
     console.log("a user connected");
 
     socket.on("result", async (data) => {
-      console.log(data);
+      // console.log(data);
       let { decodedText } = data;
+      // console.log(JSON.parse(decodedText));
+      // const duplicatedUser = await User.findOne({
+      //   sududentCode: JSON.parse(decodedText).studentCode,
+      // });
+      // console.log(duplicatedUser);
+      // if (duplicatedUser) {
+      //   return;
+      // }
       const newUser = new User(JSON.parse(decodedText));
       await newUser.save();
       console.log("create candidate successfully");

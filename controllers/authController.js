@@ -30,6 +30,7 @@ const createSendToken = (user, statusCode, res) => {
 module.exports = {
   getLogin: asyncHandle(async (req, res, next) => {
     if (!req.session.token) {
+      console.log("ok");
       return res.render("login");
     }
     return res.redirect("/user/qrCode");
@@ -42,8 +43,8 @@ module.exports = {
 
     const user = await User.findOne({ studentCode }).select("+password");
 
-    if (!user)
-      return next(new ErrorResponse("Invaible studentCode or password", 404));
+    // if (!user)
+    //   return next(new ErrorResponse("Invaible studentCode or password", 404));
 
     // const isMatch = await user.isMatchPassword(password);
     const isMatch = user.password == password;
