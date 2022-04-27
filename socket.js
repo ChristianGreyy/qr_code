@@ -13,6 +13,7 @@ module.exports = (io) => {
 
       if (duplicatedUser) {
         console.log("duplicate data");
+        io.emit("duplicated", "error");
         return;
       }
       const newUser = new User(JSON.parse(decodedText));

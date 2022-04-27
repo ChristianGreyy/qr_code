@@ -1,10 +1,24 @@
 const User = require("../models/User");
 const asyncHandle = require("../untils/asyncHandle");
 const qr = require("qrcode");
+const APIfeatures = require("../untils/apiFeatures");
 
 module.exports = {
   getUsers: asyncHandle(async (req, res, next) => {
-    const users = await User.find({});
+    const features = new APIfeatures(User.find(), req.query)
+      .filter()
+      .sort()
+      .paginate();
+
+    const users = await features.query;
+    const num = await User.countDocuments();
+    // res.status(200).json({
+    //   status: "success",
+    //   result: num,
+    //   data: {
+    //     data: users,
+    //   },
+    // });
     res.render("candidate", {
       users,
     });
