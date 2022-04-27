@@ -4,7 +4,13 @@ const qr = require("qrcode");
 
 module.exports = {
   getUsers: asyncHandle(async (req, res, next) => {
-    const users = await User.find({});
+    const { page } = req.query;
+    let users;
+    if (!page) {
+      users = await User.find({});
+    }
+    const numbers = await User.countDocuments();
+    const numberPage = numbers / 10 + 1;
     res.render("candidate", {
       users,
     });

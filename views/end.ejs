@@ -10,6 +10,11 @@
 <script>
   var socket = io();
 
+  socket.on('duplicated', (data) => {
+    console.log(data);
+    alert(data)
+  })
+
   socket.on("update-table", (users) => {
     console.log(users);
     if (users) {
@@ -74,5 +79,8 @@
       socket.emit("client-input-studentCode", studentCode);
     };
   }
+
+
+
 </script>
 <script src="/js/register.js"></script>

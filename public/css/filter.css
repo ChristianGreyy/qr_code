@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: orange;
 }
 
 .filter__input {
@@ -28,9 +28,35 @@
   align-items: center;
   background-color: white;
   cursor: pointer;
+  position: relative;
 }
 .filter__sort-point-title {
 }
 .filter__sort-point-icon {
   margin-left: 4px;
+}
+
+.filter__sort-point:hover .filter__sort-point-absolute {
+  display: block;
+}
+
+.filter__sort-point-absolute {
+  position: absolute;
+  width: 170%;
+  padding-left: 0;
+  list-style: none;
+  background-color: white;
+  box-shadow: 0 0 10px #888;
+  top: 60%;
+  left: 0;
+  display: none;
+}
+
+.filter__sort-point-absolute_items {
+  margin-bottom: 4px;
+  padding: 4px;
+}
+
+.filter__sort-point-absolute_items:hover {
+  background-color: rgb(201, 201, 201);
 }
