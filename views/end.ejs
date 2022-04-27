@@ -22,6 +22,7 @@
   socket.on("duplicated", (data) => {
     alert("sinh viên đã tồn tại");
   });
+
   socket.on("update-table", (users) => {
     console.log(users);
     if (users) {
@@ -86,5 +87,8 @@
       socket.emit("client-input-studentCode", studentCode);
     };
   }
+
+
+
 </script>
 <script src="/js/register.js"></script>

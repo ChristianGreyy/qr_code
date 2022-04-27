@@ -19,6 +19,7 @@ module.exports = {
     //     data: users,
     //   },
     // });
+
     res.render("candidate", {
       users,
     });

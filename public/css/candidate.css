@@ -14,3 +14,34 @@ th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.list__page {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  bottom: 12px;
+}
+
+.list__page-items {
+  width: 40px;
+  height: 40px;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6px;
+  font-size: 18px;
+}
+
+.list__page-items-link {
+  color: white;
+  text-decoration: none;
+}
+
+.list__page-items--active {
+  background-color: rgb(156, 105, 10);
+}
