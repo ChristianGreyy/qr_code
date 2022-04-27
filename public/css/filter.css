@@ -1,0 +1,36 @@
+.filter {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.filter__input {
+  width: 20%;
+}
+
+.filter__input input {
+  padding: 10px;
+  width: 90%;
+  font-size: 16 px;
+}
+
+.filter__sortv {
+  margin-left: 20px;
+}
+
+.filter__sort-point {
+  padding: 10px;
+}
+.filter__sort-point {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  cursor: pointer;
+}
+.filter__sort-point-title {
+}
+.filter__sort-point-icon {
+  margin-left: 4px;
+}

@@ -11,23 +11,32 @@
   <body>
     <div class="container">
       <div class="container__left">
-        <form action="/user/createUserQR" method="POST">
+        <form onsubmit="event.preventDefault()" class="register__form">
           <header>Tuyển thành viên HIT</header>
           <div class="input-field">
-            <input name="name" type="text" required />
+            <input name="name" type="text" class="register__name" required />
             <label>Họ và tên</label>
           </div>
           <div class="input-field">
-            <input name="class" class="pswrd" type="text" required />
+            <input
+              name="studentCode"
+              class="register__studentCode"
+              type="text"
+              required
+            />
+            <label>Mã sinh viên</label>
+          </div>
+          <div class="input-field">
+            <input name="class" class="register__class" type="text" required />
             <label>Lớp học</label>
           </div>
           <div class="input-field">
-            <input name="studentCode" class="pswrd" type="text" required />
-            <label>Mã sinh viên</label>
+            <input name="email" class="register__email" type="text" required />
+            <label>Email</label>
           </div>
           <div class="button">
             <div class="inner"></div>
-            <button>Gửi</button>
+            <button class="register__submit">Tạo mã Qr code</button>
           </div>
         </form>
       </div>

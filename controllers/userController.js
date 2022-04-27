@@ -3,8 +3,14 @@ const asyncHandle = require("../untils/asyncHandle");
 const qr = require("qrcode");
 
 module.exports = {
-  getUsers: asyncHandle(async (req, res, next) => {}),
+  getUsers: asyncHandle(async (req, res, next) => {
+    const users = await User.find({});
+    res.render("candidate", {
+      users,
+    });
+  }),
   createUserQr: asyncHandle(async (req, res, next) => {
+    console.log(req.body);
     let strData = JSON.stringify(req.body);
 
     qr.toString(strData, { type: "terminal" }, function (err, code) {
@@ -16,8 +22,8 @@ module.exports = {
       if (err) return console.log("error occurred");
 
       console.log("create candidate successfully");
-      res.render("qr", {
-        src: code,
+      res.status(201).json({
+        code,
       });
     });
   }),

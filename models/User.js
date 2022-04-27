@@ -9,7 +9,7 @@ const userSchema = new Schema(
       type: String,
       require: [true, "User must have name"],
     },
-    class: {
+    classroom: {
       type: String,
       require: [true, "User must have class"],
     },
@@ -27,6 +27,10 @@ const userSchema = new Schema(
     comment: String,
     password: String,
     qrCode: String,
+    email: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

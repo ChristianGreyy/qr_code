@@ -7,6 +7,7 @@ function onScanSuccess(decodedText, decodedResult) {
     //   decodedResult,
     //   src,
     // });
+    console.log(decodedResult);
     socket.emit("result", decodedResult);
   }
 }
